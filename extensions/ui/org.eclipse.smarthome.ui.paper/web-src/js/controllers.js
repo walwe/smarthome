@@ -129,18 +129,6 @@ angular.module('PaperUI.controllers', [ 'PaperUI.constants' ]).controller('BodyC
         }
     });
 
-    eventService.onEvent('smarthome/items/*/statechanged', function(topic, stateObject) {
-        var itemName = topic.split('/')[2];
-        if (itemName && (stateObject.type == "PercentType" || stateObject.type == "DecimalType")) {
-            var index = getItemIndex(itemName);
-            if (index !== -1) {
-                $scope.$apply(function(scope) {
-                    $rootScope.data.items[index].state = parseInt(stateObject.value);
-                });
-            }
-        }
-    });
-
     function getItemIndex(itemName) {
         if ($rootScope.data.items) {
             for (var it = 0; it < $rootScope.data.items.length; it++) {
